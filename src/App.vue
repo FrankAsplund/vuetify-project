@@ -1,24 +1,35 @@
 <template>
   <v-app>
-
-    <v-app-bar :elevation="8">
+    
+    <v-app-bar :elevation="6" class="mb-16">
       <v-app-bar-nav-icon />
       <v-app-bar-title>
         Vuetify Tutorial
       </v-app-bar-title>
-  <template v-slot:append>
-    <v-btn icon="mdi-heart"></v-btn>
+      <template v-slot:append>
+        <v-btn icon="mdi-heart"></v-btn>
+        
+        <v-btn icon="mdi-magnify"></v-btn>
+        
+        <v-btn icon="mdi-dots-vertical"></v-btn>
+      </template>
+    </v-app-bar>
 
-    <v-btn icon="mdi-magnify"></v-btn>
-
-    <v-btn icon="mdi-dots-vertical"></v-btn>
-  </template>
-</v-app-bar>
-
-
-<div class="container">
-
-      <div class="d-flex align-center flex-row mx-4 ">      
+    <v-alert class="mt-16" title="Observera!" closable text="..." type="error" variant="tonal">Ingen av knapparna fungerar och är bara till för estetiska syften.</v-alert>
+    
+    
+    <v-col class="mt-16">
+      
+      <div class="d-flex align-center flex-row mx-4 rounded-xl">      
+        
+        <v-card
+        
+        class="mx-4"
+        width="400"
+        title="This is a title"
+        subtitle="This is a subtitle"
+        text="This is content"
+        ></v-card>
         
         <v-card
         class="mx-4"
@@ -35,60 +46,101 @@
         subtitle="This is a subtitle"
         text="This is content"
         ></v-card>
+      </div>
+      
+      <v-divider class="mt-4" inset></v-divider>
+    </v-col>
+      
 
-        <v-card
-        class="mx-4"
-        width="400"
-        title="This is a title"
-        subtitle="This is a subtitle"
-        text="This is content"
-        ></v-card>
-  </div>
+    
+    <v-expansion-panels class="ma-8 w-50">
+      <v-expansion-panel
+      title="Expansion Panel"
+      text="This is an expansion panel, lorem ipsum lorem ipsum"
+      >
+      
+    </v-expansion-panel>
+  </v-expansion-panels>
+  
 
-  <v-form v-model="valid">
-    <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="firstname"
-            :rules="nameRules"
-            :counter="10"
-            label="First name"
-            required
-          ></v-text-field>
-        </v-col>
+  <v-row auto>
 
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="lastname"
-            :rules="nameRules"
-            :counter="10"
-            label="Last name"
-            required
-          ></v-text-field>
-        </v-col>
+    <v-col class="mb-16">
+      <v-form class="mx-8 w-50"
+      ref="form"
+      v-model="valid"
+lazy-validation
+>
+<v-text-field
+v-model="name"
+:counter="10"
+:rules="nameRules"
+label="Name"
+required
+></v-text-field>
 
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-form>
-</div>
+<v-text-field
+v-model="email"
+:rules="emailRules"
+label="E-mail"
+required
+></v-text-field>
+
+<v-select
+v-model="select"
+:items="items"
+:rules="[v => !!v || 'Item is required']"
+label="Item"
+required
+></v-select>
+
+<v-checkbox
+v-model="checkbox"
+:rules="[v => !!v || 'You must agree to continue!']"
+label="Do you agree?"
+required
+></v-checkbox>
+
+<v-btn
+color="success"
+class="mr-4"
+@click="validate"
+>
+Validate
+</v-btn>
+
+<v-btn
+color="error"
+class="mr-4"
+@click="reset"
+>
+Reset Form
+</v-btn>
+
+<v-btn
+color="warning"
+@click="resetValidation"
+>
+Reset Validation
+</v-btn>
+</v-form>
+
+
+</v-col>
+
+<v-hover>
+  <template v-slot:default="{ isHovering, props }">
+    <v-card
+      v-bind="props"
+      :color="isHovering ? 'primary' : undefined"
+      title="Hover over me"
+      text="..."
+    ></v-card>
+  </template>
+</v-hover>
+
+</v-row>
+
 
 <v-bottom-navigation mode="shift">
   <v-btn value="recent">
@@ -118,9 +170,9 @@
 
 <style scoped>
 
-.container {
+/* .container {
   margin: 7rem 0 5rem 0;
-}
+} */
 
 /* .container-card {
   margin: 1rem;
